@@ -1,0 +1,68 @@
+table T_Product
+	lineageTag: 811addb6-6abb-4375-9e2a-011eb734bce8
+
+	measure DiscApplied =
+			CALCULATE(COUNTROWS(T_Sales),
+			T_Sales[Discount] > 0
+			)
+		formatString: 0
+		lineageTag: 80aeeb18-0364-4171-8e51-00d1e8b7b2eb
+
+	column ProductId
+		dataType: string
+		lineageTag: 1ac9776a-7d4f-4288-8d29-d2efd9a43383
+		summarizeBy: none
+		sourceColumn: ProductId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CatSubCatId
+		dataType: string
+		lineageTag: c87e702f-0ee4-4cbb-9e97-7bf1afc15209
+		summarizeBy: none
+		sourceColumn: CatSubCatId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManufacturerId
+		dataType: string
+		lineageTag: d5373365-0dec-4fd1-9031-ea2c19df35a8
+		summarizeBy: none
+		sourceColumn: ManufacturerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: d6c1bc69-c578-41ec-8294-3cca64c9aadc
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentProductName
+		dataType: int64
+		formatString: 0
+		lineageTag: 33869c56-80a9-4d2c-b318-2057a049c1bd
+		summarizeBy: sum
+		sourceColumn: IsCurrentProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Product = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Product.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ProductId", Int64.Type}, {"CatSubCatId", Int64.Type}, {"ManufacturerId", Int64.Type}, {"ProductName", type text}, {"IsCurrentProductName", Int64.Type}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([IsCurrentProductName] = 1)),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas filtradas",{{"ProductId", type text}, {"CatSubCatId", type text}, {"ManufacturerId", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

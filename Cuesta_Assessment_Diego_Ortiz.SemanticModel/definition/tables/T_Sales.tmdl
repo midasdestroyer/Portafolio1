@@ -1,0 +1,138 @@
+table T_Sales
+	lineageTag: eeee31af-eb54-4472-8c1a-4c37f53bcc72
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 87c5661f-e4ea-48ec-9e20-2780d0459450
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: d "de" mmmm "de" yyyy
+		lineageTag: 77178045-5f68-4b08-95ba-bbadd2b09799
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CustomerId
+		dataType: string
+		lineageTag: 880d536a-8b71-4082-8944-fde9513bb323
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CityId
+		dataType: string
+		lineageTag: c2038a13-c8dc-4b10-b169-1c30a5f94697
+		summarizeBy: none
+		sourceColumn: CityId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductId
+		dataType: string
+		lineageTag: a858dbda-a2a4-40fd-b1b6-f41e30d1ca03
+		summarizeBy: none
+		sourceColumn: ProductId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 44465928-e488-4b6d-91f0-f5c2359cbfcc
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variación
+			isDefault
+			relationship: cc75b2e7-c543-4f89-990f-629966a162a5
+			defaultHierarchy: LocalDateTable_412f5a68-70b5-4f76-8662-d4ee00944685.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship ModeId'
+		dataType: string
+		lineageTag: 9e6b4d37-d2dc-4722-bf46-455ff8a6e523
+		summarizeBy: none
+		sourceColumn: Ship ModeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d60623c9-adad-41f8-ba3e-6c77c66f7485
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		lineageTag: ab32d1b3-8ba7-46f1-80a4-ab07b1398a0e
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 27efad9d-e507-48f0-be95-0df53fdd2d3a
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: 8276ea3e-697f-4357-961e-cfcb9e90452d
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DeliveryTimeDays = DATEDIFF(T_Sales[Order Date], T_Sales[Ship Date], DAY)
+		formatString: 0
+		lineageTag: f66c8dd2-804f-4b57-aeb2-89dd9d7ceda4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Sales = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Sales.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"CityId", type text}, {"Ship Date", type date}, {"Order Date", type date}, {"Order ID", type text}, {"CustomerId", type text}, {"ProductId", type text}, {"Ship ModeId", type text}}),
+				    #"texto a fecha" = Table.ReplaceValue(#"Tipo cambiado",",","",Replacer.ReplaceText,{"Profit", "Sales"}),
+				    #"comas y puntos" = Table.ReplaceValue(#"texto a fecha",".",",",Replacer.ReplaceText,{"Profit", "Sales"}),
+				    #"comas y puntos 2" = Table.ReplaceValue(#"comas y puntos",",","",Replacer.ReplaceText,{"Discount", "Quantity"}),
+				    #"comas y puntos 3" = Table.ReplaceValue(#"comas y puntos 2",".",",",Replacer.ReplaceText,{"Discount", "Quantity"}),
+				    #"Tipo cambiado-numeros" = Table.TransformColumnTypes(#"comas y puntos 3",{{"Discount", Percentage.Type}, {"Quantity", Int64.Type}, {"Profit", type number}, {"Sales", type number}}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Tipo cambiado-numeros",{{"Discount", type number}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

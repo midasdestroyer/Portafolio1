@@ -1,0 +1,34 @@
+table T_orderIDCount
+	lineageTag: bb619800-7ed5-474e-ba3d-34d1eedc0bc4
+
+	column CustomerId
+		lineageTag: 66fcd181-ee65-4f23-8e75-6520a47a4429
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Sales[CustomerId]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Order Count'
+		formatString: 0
+		lineageTag: 71caaa62-dc1e-481f-af3e-1119b6fcc5df
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Unique Order Count]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_orderIDCount = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZE(
+				    T_Sales,
+				    T_Sales[CustomerID],
+				    "Unique Order Count", DISTINCTCOUNT(T_Sales[Order ID])
+				)
+				
+				```
+
+	annotation PBI_Id = ac829550cdb746e89c37cef86c14e4eb
+

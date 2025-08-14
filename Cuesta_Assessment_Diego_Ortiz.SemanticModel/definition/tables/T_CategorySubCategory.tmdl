@@ -1,0 +1,42 @@
+table T_CategorySubCategory
+	lineageTag: 55281cb8-a70d-4a78-9e61-0fbde5f02dff
+
+	column CatSubCatId
+		dataType: string
+		lineageTag: 80d8443d-66af-4a22-807c-87168238c522
+		summarizeBy: none
+		sourceColumn: CatSubCatId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 63eff3bc-e8dc-445f-a9fb-f6c237aeaba2
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: e0199463-ff96-40c9-aa0c-bb7d89430971
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_CategorySubCategory = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\CategorySubCategory.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"CatSubCatId", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

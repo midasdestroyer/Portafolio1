@@ -1,0 +1,137 @@
+table T_Returns
+	lineageTag: b3355c7f-f8f8-4c22-a80c-168e7c66b329
+
+	column ReturnedOrderId
+		dataType: string
+		lineageTag: eaef2568-dc1a-41a4-bf8e-2764388be0b0
+		summarizeBy: none
+		sourceColumn: ReturnedOrderId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 72fd25e3-157f-48e5-a9f4-c113a605e22c
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		variation Variación
+			isDefault
+			relationship: 9e9106c1-b67b-4e6d-8839-09a76abdf99d
+			defaultHierarchy: LocalDateTable_5643b34a-9327-4e38-9044-24e8432fb061.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerId
+		dataType: string
+		lineageTag: bb78c032-8ce8-411d-95d4-25c7e7a0a80f
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CityId
+		dataType: string
+		lineageTag: 3c72e37c-d872-4408-b2c6-99b4a85dc7d4
+		summarizeBy: none
+		sourceColumn: CityId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductId
+		dataType: string
+		lineageTag: a497c232-6359-4272-8ae1-988e5b84a769
+		summarizeBy: none
+		sourceColumn: ProductId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 21c9c56a-f140-4557-9e52-74e9ea788ce7
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variación
+			isDefault
+			relationship: faf780db-22b1-4fa8-880a-0e17796df897
+			defaultHierarchy: LocalDateTable_0b0fcbff-7433-4bf6-b618-03af2acd7b22.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship ModeId'
+		dataType: string
+		lineageTag: 643ccaab-a357-47b8-8a40-1581e56439e1
+		summarizeBy: none
+		sourceColumn: Ship ModeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount
+		dataType: double
+		lineageTag: b11a51fa-0f0c-45da-9b4d-92a3ffe825ba
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		dataType: double
+		lineageTag: bed79ba9-0ba1-4997-8199-84d357f7cc4c
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 2427d99e-9a38-4324-81bb-d520a86826c3
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: 083bec39-d244-4e78-b1c1-dba46643eb24
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition T_Returns = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Returns.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Sheet1_Sheet,{{"Column1", type text}}),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Tipo cambiado", [PromoteAllScalars=true]),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ReturnedOrderId", type text}}),
+				    #"Dividir columna por delimitador" = Table.SplitColumn(#"Tipo cambiado1", "ReturnedOrderId", Splitter.SplitTextByDelimiter(",", QuoteStyle.None), {"ReturnedOrderId.1", "ReturnedOrderId.2", "ReturnedOrderId.3", "ReturnedOrderId.4", "ReturnedOrderId.5", "ReturnedOrderId.6", "ReturnedOrderId.7", "ReturnedOrderId.8", "ReturnedOrderId.9", "ReturnedOrderId.10", "ReturnedOrderId.11", "ReturnedOrderId.12", "ReturnedOrderId.13", "ReturnedOrderId.14", "ReturnedOrderId.15", "ReturnedOrderId.16", "ReturnedOrderId.17", "ReturnedOrderId.18", "ReturnedOrderId.19", "ReturnedOrderId.20", "ReturnedOrderId.21", "ReturnedOrderId.22", "ReturnedOrderId.23", "ReturnedOrderId.24", "ReturnedOrderId.25", "ReturnedOrderId.26", "ReturnedOrderId.27", "ReturnedOrderId.28", "ReturnedOrderId.29", "ReturnedOrderId.30", "ReturnedOrderId.31", "ReturnedOrderId.32", "ReturnedOrderId.33", "ReturnedOrderId.34", "ReturnedOrderId.35", "ReturnedOrderId.36", "ReturnedOrderId.37", "ReturnedOrderId.38", "ReturnedOrderId.39", "ReturnedOrderId.40", "ReturnedOrderId.41", "ReturnedOrderId.42", "ReturnedOrderId.43", "ReturnedOrderId.44", "ReturnedOrderId.45", "ReturnedOrderId.46", "ReturnedOrderId.47", "ReturnedOrderId.48", "ReturnedOrderId.49", "ReturnedOrderId.50", "ReturnedOrderId.51", "ReturnedOrderId.52", "ReturnedOrderId.53", "ReturnedOrderId.54", "ReturnedOrderId.55", "ReturnedOrderId.56", "ReturnedOrderId.57", "ReturnedOrderId.58", "ReturnedOrderId.59", "ReturnedOrderId.60", "ReturnedOrderId.61", "ReturnedOrderId.62", "ReturnedOrderId.63", "ReturnedOrderId.64", "ReturnedOrderId.65", "ReturnedOrderId.66", "ReturnedOrderId.67", "ReturnedOrderId.68", "ReturnedOrderId.69", "ReturnedOrderId.70", "ReturnedOrderId.71", "ReturnedOrderId.72", "ReturnedOrderId.73", "ReturnedOrderId.74", "ReturnedOrderId.75", "ReturnedOrderId.76", "ReturnedOrderId.77", "ReturnedOrderId.78", "ReturnedOrderId.79", "ReturnedOrderId.80", "ReturnedOrderId.81", "ReturnedOrderId.82", "ReturnedOrderId.83", "ReturnedOrderId.84", "ReturnedOrderId.85", "ReturnedOrderId.86", "ReturnedOrderId.87", "ReturnedOrderId.88", "ReturnedOrderId.89", "ReturnedOrderId.90", "ReturnedOrderId.91", "ReturnedOrderId.92", "ReturnedOrderId.93", "ReturnedOrderId.94", "ReturnedOrderId.95", "ReturnedOrderId.96", "ReturnedOrderId.97", "ReturnedOrderId.98", "ReturnedOrderId.99", "ReturnedOrderId.100", "ReturnedOrderId.101", "ReturnedOrderId.102", "ReturnedOrderId.103", "ReturnedOrderId.104", "ReturnedOrderId.105", "ReturnedOrderId.106", "ReturnedOrderId.107", "ReturnedOrderId.108", "ReturnedOrderId.109", "ReturnedOrderId.110", "ReturnedOrderId.111", "ReturnedOrderId.112", "ReturnedOrderId.113", "ReturnedOrderId.114", "ReturnedOrderId.115", "ReturnedOrderId.116", "ReturnedOrderId.117", "ReturnedOrderId.118", "ReturnedOrderId.119", "ReturnedOrderId.120", "ReturnedOrderId.121", "ReturnedOrderId.122", "ReturnedOrderId.123", "ReturnedOrderId.124", "ReturnedOrderId.125", "ReturnedOrderId.126", "ReturnedOrderId.127", "ReturnedOrderId.128", "ReturnedOrderId.129", "ReturnedOrderId.130", "ReturnedOrderId.131", "ReturnedOrderId.132", "ReturnedOrderId.133", "ReturnedOrderId.134", "ReturnedOrderId.135", "ReturnedOrderId.136", "ReturnedOrderId.137", "ReturnedOrderId.138", "ReturnedOrderId.139", "ReturnedOrderId.140", "ReturnedOrderId.141", "ReturnedOrderId.142", "ReturnedOrderId.143", "ReturnedOrderId.144", "ReturnedOrderId.145", "ReturnedOrderId.146", "ReturnedOrderId.147", "ReturnedOrderId.148", "ReturnedOrderId.149", "ReturnedOrderId.150", "ReturnedOrderId.151", "ReturnedOrderId.152", "ReturnedOrderId.153", "ReturnedOrderId.154", "ReturnedOrderId.155", "ReturnedOrderId.156", "ReturnedOrderId.157", "ReturnedOrderId.158", "ReturnedOrderId.159", "ReturnedOrderId.160", "ReturnedOrderId.161", "ReturnedOrderId.162", "ReturnedOrderId.163", "ReturnedOrderId.164", "ReturnedOrderId.165", "ReturnedOrderId.166", "ReturnedOrderId.167", "ReturnedOrderId.168", "ReturnedOrderId.169", "ReturnedOrderId.170", "ReturnedOrderId.171", "ReturnedOrderId.172", "ReturnedOrderId.173", "ReturnedOrderId.174", "ReturnedOrderId.175", "ReturnedOrderId.176", "ReturnedOrderId.177", "ReturnedOrderId.178", "ReturnedOrderId.179", "ReturnedOrderId.180", "ReturnedOrderId.181", "ReturnedOrderId.182", "ReturnedOrderId.183", "ReturnedOrderId.184", "ReturnedOrderId.185", "ReturnedOrderId.186", "ReturnedOrderId.187", "ReturnedOrderId.188", "ReturnedOrderId.189", "ReturnedOrderId.190", "ReturnedOrderId.191", "ReturnedOrderId.192", "ReturnedOrderId.193", "ReturnedOrderId.194", "ReturnedOrderId.195", "ReturnedOrderId.196", "ReturnedOrderId.197", "ReturnedOrderId.198", "ReturnedOrderId.199", "ReturnedOrderId.200", "ReturnedOrderId.201", "ReturnedOrderId.202", "ReturnedOrderId.203", "ReturnedOrderId.204", "ReturnedOrderId.205", "ReturnedOrderId.206", "ReturnedOrderId.207", "ReturnedOrderId.208", "ReturnedOrderId.209", "ReturnedOrderId.210", "ReturnedOrderId.211", "ReturnedOrderId.212", "ReturnedOrderId.213", "ReturnedOrderId.214", "ReturnedOrderId.215", "ReturnedOrderId.216", "ReturnedOrderId.217", "ReturnedOrderId.218", "ReturnedOrderId.219", "ReturnedOrderId.220", "ReturnedOrderId.221", "ReturnedOrderId.222", "ReturnedOrderId.223", "ReturnedOrderId.224", "ReturnedOrderId.225", "ReturnedOrderId.226", "ReturnedOrderId.227", "ReturnedOrderId.228", "ReturnedOrderId.229", "ReturnedOrderId.230", "ReturnedOrderId.231", "ReturnedOrderId.232", "ReturnedOrderId.233", "ReturnedOrderId.234", "ReturnedOrderId.235", "ReturnedOrderId.236", "ReturnedOrderId.237", "ReturnedOrderId.238", "ReturnedOrderId.239", "ReturnedOrderId.240", "ReturnedOrderId.241", "ReturnedOrderId.242", "ReturnedOrderId.243", "ReturnedOrderId.244", "ReturnedOrderId.245", "ReturnedOrderId.246", "ReturnedOrderId.247", "ReturnedOrderId.248", "ReturnedOrderId.249", "ReturnedOrderId.250", "ReturnedOrderId.251", "ReturnedOrderId.252", "ReturnedOrderId.253", "ReturnedOrderId.254", "ReturnedOrderId.255", "ReturnedOrderId.256", "ReturnedOrderId.257", "ReturnedOrderId.258", "ReturnedOrderId.259", "ReturnedOrderId.260", "ReturnedOrderId.261", "ReturnedOrderId.262", "ReturnedOrderId.263", "ReturnedOrderId.264", "ReturnedOrderId.265", "ReturnedOrderId.266", "ReturnedOrderId.267", "ReturnedOrderId.268", "ReturnedOrderId.269", "ReturnedOrderId.270", "ReturnedOrderId.271", "ReturnedOrderId.272", "ReturnedOrderId.273", "ReturnedOrderId.274", "ReturnedOrderId.275", "ReturnedOrderId.276", "ReturnedOrderId.277", "ReturnedOrderId.278", "ReturnedOrderId.279", "ReturnedOrderId.280", "ReturnedOrderId.281", "ReturnedOrderId.282", "ReturnedOrderId.283", "ReturnedOrderId.284", "ReturnedOrderId.285", "ReturnedOrderId.286", "ReturnedOrderId.287", "ReturnedOrderId.288", "ReturnedOrderId.289", "ReturnedOrderId.290", "ReturnedOrderId.291", "ReturnedOrderId.292", "ReturnedOrderId.293", "ReturnedOrderId.294", "ReturnedOrderId.295", "ReturnedOrderId.296"}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"ReturnedOrderId.1", type text}, {"ReturnedOrderId.2", type text}, {"ReturnedOrderId.3", type text}, {"ReturnedOrderId.4", type text}, {"ReturnedOrderId.5", type text}, {"ReturnedOrderId.6", type text}, {"ReturnedOrderId.7", type text}, {"ReturnedOrderId.8", type text}, {"ReturnedOrderId.9", type text}, {"ReturnedOrderId.10", type text}, {"ReturnedOrderId.11", type text}, {"ReturnedOrderId.12", type text}, {"ReturnedOrderId.13", type text}, {"ReturnedOrderId.14", type text}, {"ReturnedOrderId.15", type text}, {"ReturnedOrderId.16", type text}, {"ReturnedOrderId.17", type text}, {"ReturnedOrderId.18", type text}, {"ReturnedOrderId.19", type text}, {"ReturnedOrderId.20", type text}, {"ReturnedOrderId.21", type text}, {"ReturnedOrderId.22", type text}, {"ReturnedOrderId.23", type text}, {"ReturnedOrderId.24", type text}, {"ReturnedOrderId.25", type text}, {"ReturnedOrderId.26", type text}, {"ReturnedOrderId.27", type text}, {"ReturnedOrderId.28", type text}, {"ReturnedOrderId.29", type text}, {"ReturnedOrderId.30", type text}, {"ReturnedOrderId.31", type text}, {"ReturnedOrderId.32", type text}, {"ReturnedOrderId.33", type text}, {"ReturnedOrderId.34", type text}, {"ReturnedOrderId.35", type text}, {"ReturnedOrderId.36", type text}, {"ReturnedOrderId.37", type text}, {"ReturnedOrderId.38", type text}, {"ReturnedOrderId.39", type text}, {"ReturnedOrderId.40", type text}, {"ReturnedOrderId.41", type text}, {"ReturnedOrderId.42", type text}, {"ReturnedOrderId.43", type text}, {"ReturnedOrderId.44", type text}, {"ReturnedOrderId.45", type text}, {"ReturnedOrderId.46", type text}, {"ReturnedOrderId.47", type text}, {"ReturnedOrderId.48", type text}, {"ReturnedOrderId.49", type text}, {"ReturnedOrderId.50", type text}, {"ReturnedOrderId.51", type text}, {"ReturnedOrderId.52", type text}, {"ReturnedOrderId.53", type text}, {"ReturnedOrderId.54", type text}, {"ReturnedOrderId.55", type text}, {"ReturnedOrderId.56", type text}, {"ReturnedOrderId.57", type text}, {"ReturnedOrderId.58", type text}, {"ReturnedOrderId.59", type text}, {"ReturnedOrderId.60", type text}, {"ReturnedOrderId.61", type text}, {"ReturnedOrderId.62", type text}, {"ReturnedOrderId.63", type text}, {"ReturnedOrderId.64", type text}, {"ReturnedOrderId.65", type text}, {"ReturnedOrderId.66", type text}, {"ReturnedOrderId.67", type text}, {"ReturnedOrderId.68", type text}, {"ReturnedOrderId.69", type text}, {"ReturnedOrderId.70", type text}, {"ReturnedOrderId.71", type text}, {"ReturnedOrderId.72", type text}, {"ReturnedOrderId.73", type text}, {"ReturnedOrderId.74", type text}, {"ReturnedOrderId.75", type text}, {"ReturnedOrderId.76", type text}, {"ReturnedOrderId.77", type text}, {"ReturnedOrderId.78", type text}, {"ReturnedOrderId.79", type text}, {"ReturnedOrderId.80", type text}, {"ReturnedOrderId.81", type text}, {"ReturnedOrderId.82", type text}, {"ReturnedOrderId.83", type text}, {"ReturnedOrderId.84", type text}, {"ReturnedOrderId.85", type text}, {"ReturnedOrderId.86", type text}, {"ReturnedOrderId.87", type text}, {"ReturnedOrderId.88", type text}, {"ReturnedOrderId.89", type text}, {"ReturnedOrderId.90", type text}, {"ReturnedOrderId.91", type text}, {"ReturnedOrderId.92", type text}, {"ReturnedOrderId.93", type text}, {"ReturnedOrderId.94", type text}, {"ReturnedOrderId.95", type text}, {"ReturnedOrderId.96", type text}, {"ReturnedOrderId.97", type text}, {"ReturnedOrderId.98", type text}, {"ReturnedOrderId.99", type text}, {"ReturnedOrderId.100", type text}, {"ReturnedOrderId.101", type text}, {"ReturnedOrderId.102", type text}, {"ReturnedOrderId.103", type text}, {"ReturnedOrderId.104", type text}, {"ReturnedOrderId.105", type text}, {"ReturnedOrderId.106", type text}, {"ReturnedOrderId.107", type text}, {"ReturnedOrderId.108", type text}, {"ReturnedOrderId.109", type text}, {"ReturnedOrderId.110", type text}, {"ReturnedOrderId.111", type text}, {"ReturnedOrderId.112", type text}, {"ReturnedOrderId.113", type text}, {"ReturnedOrderId.114", type text}, {"ReturnedOrderId.115", type text}, {"ReturnedOrderId.116", type text}, {"ReturnedOrderId.117", type text}, {"ReturnedOrderId.118", type text}, {"ReturnedOrderId.119", type text}, {"ReturnedOrderId.120", type text}, {"ReturnedOrderId.121", type text}, {"ReturnedOrderId.122", type text}, {"ReturnedOrderId.123", type text}, {"ReturnedOrderId.124", type text}, {"ReturnedOrderId.125", type text}, {"ReturnedOrderId.126", type text}, {"ReturnedOrderId.127", type text}, {"ReturnedOrderId.128", type text}, {"ReturnedOrderId.129", type text}, {"ReturnedOrderId.130", type text}, {"ReturnedOrderId.131", type text}, {"ReturnedOrderId.132", type text}, {"ReturnedOrderId.133", type text}, {"ReturnedOrderId.134", type text}, {"ReturnedOrderId.135", type text}, {"ReturnedOrderId.136", type text}, {"ReturnedOrderId.137", type text}, {"ReturnedOrderId.138", type text}, {"ReturnedOrderId.139", type text}, {"ReturnedOrderId.140", type text}, {"ReturnedOrderId.141", type text}, {"ReturnedOrderId.142", type text}, {"ReturnedOrderId.143", type text}, {"ReturnedOrderId.144", type text}, {"ReturnedOrderId.145", type text}, {"ReturnedOrderId.146", type text}, {"ReturnedOrderId.147", type text}, {"ReturnedOrderId.148", type text}, {"ReturnedOrderId.149", type text}, {"ReturnedOrderId.150", type text}, {"ReturnedOrderId.151", type text}, {"ReturnedOrderId.152", type text}, {"ReturnedOrderId.153", type text}, {"ReturnedOrderId.154", type text}, {"ReturnedOrderId.155", type text}, {"ReturnedOrderId.156", type text}, {"ReturnedOrderId.157", type text}, {"ReturnedOrderId.158", type text}, {"ReturnedOrderId.159", type text}, {"ReturnedOrderId.160", type text}, {"ReturnedOrderId.161", type text}, {"ReturnedOrderId.162", type text}, {"ReturnedOrderId.163", type text}, {"ReturnedOrderId.164", type text}, {"ReturnedOrderId.165", type text}, {"ReturnedOrderId.166", type text}, {"ReturnedOrderId.167", type text}, {"ReturnedOrderId.168", type text}, {"ReturnedOrderId.169", type text}, {"ReturnedOrderId.170", type text}, {"ReturnedOrderId.171", type text}, {"ReturnedOrderId.172", type text}, {"ReturnedOrderId.173", type text}, {"ReturnedOrderId.174", type text}, {"ReturnedOrderId.175", type text}, {"ReturnedOrderId.176", type text}, {"ReturnedOrderId.177", type text}, {"ReturnedOrderId.178", type text}, {"ReturnedOrderId.179", type text}, {"ReturnedOrderId.180", type text}, {"ReturnedOrderId.181", type text}, {"ReturnedOrderId.182", type text}, {"ReturnedOrderId.183", type text}, {"ReturnedOrderId.184", type text}, {"ReturnedOrderId.185", type text}, {"ReturnedOrderId.186", type text}, {"ReturnedOrderId.187", type text}, {"ReturnedOrderId.188", type text}, {"ReturnedOrderId.189", type text}, {"ReturnedOrderId.190", type text}, {"ReturnedOrderId.191", type text}, {"ReturnedOrderId.192", type text}, {"ReturnedOrderId.193", type text}, {"ReturnedOrderId.194", type text}, {"ReturnedOrderId.195", type text}, {"ReturnedOrderId.196", type text}, {"ReturnedOrderId.197", type text}, {"ReturnedOrderId.198", type text}, {"ReturnedOrderId.199", type text}, {"ReturnedOrderId.200", type text}, {"ReturnedOrderId.201", type text}, {"ReturnedOrderId.202", type text}, {"ReturnedOrderId.203", type text}, {"ReturnedOrderId.204", type text}, {"ReturnedOrderId.205", type text}, {"ReturnedOrderId.206", type text}, {"ReturnedOrderId.207", type text}, {"ReturnedOrderId.208", type text}, {"ReturnedOrderId.209", type text}, {"ReturnedOrderId.210", type text}, {"ReturnedOrderId.211", type text}, {"ReturnedOrderId.212", type text}, {"ReturnedOrderId.213", type text}, {"ReturnedOrderId.214", type text}, {"ReturnedOrderId.215", type text}, {"ReturnedOrderId.216", type text}, {"ReturnedOrderId.217", type text}, {"ReturnedOrderId.218", type text}, {"ReturnedOrderId.219", type text}, {"ReturnedOrderId.220", type text}, {"ReturnedOrderId.221", type text}, {"ReturnedOrderId.222", type text}, {"ReturnedOrderId.223", type text}, {"ReturnedOrderId.224", type text}, {"ReturnedOrderId.225", type text}, {"ReturnedOrderId.226", type text}, {"ReturnedOrderId.227", type text}, {"ReturnedOrderId.228", type text}, {"ReturnedOrderId.229", type text}, {"ReturnedOrderId.230", type text}, {"ReturnedOrderId.231", type text}, {"ReturnedOrderId.232", type text}, {"ReturnedOrderId.233", type text}, {"ReturnedOrderId.234", type text}, {"ReturnedOrderId.235", type text}, {"ReturnedOrderId.236", type text}, {"ReturnedOrderId.237", type text}, {"ReturnedOrderId.238", type text}, {"ReturnedOrderId.239", type text}, {"ReturnedOrderId.240", type text}, {"ReturnedOrderId.241", type text}, {"ReturnedOrderId.242", type text}, {"ReturnedOrderId.243", type text}, {"ReturnedOrderId.244", type text}, {"ReturnedOrderId.245", type text}, {"ReturnedOrderId.246", type text}, {"ReturnedOrderId.247", type text}, {"ReturnedOrderId.248", type text}, {"ReturnedOrderId.249", type text}, {"ReturnedOrderId.250", type text}, {"ReturnedOrderId.251", type text}, {"ReturnedOrderId.252", type text}, {"ReturnedOrderId.253", type text}, {"ReturnedOrderId.254", type text}, {"ReturnedOrderId.255", type text}, {"ReturnedOrderId.256", type text}, {"ReturnedOrderId.257", type text}, {"ReturnedOrderId.258", type text}, {"ReturnedOrderId.259", type text}, {"ReturnedOrderId.260", type text}, {"ReturnedOrderId.261", type text}, {"ReturnedOrderId.262", type text}, {"ReturnedOrderId.263", type text}, {"ReturnedOrderId.264", type text}, {"ReturnedOrderId.265", type text}, {"ReturnedOrderId.266", type text}, {"ReturnedOrderId.267", type text}, {"ReturnedOrderId.268", type text}, {"ReturnedOrderId.269", type text}, {"ReturnedOrderId.270", type text}, {"ReturnedOrderId.271", type text}, {"ReturnedOrderId.272", type text}, {"ReturnedOrderId.273", type text}, {"ReturnedOrderId.274", type text}, {"ReturnedOrderId.275", type text}, {"ReturnedOrderId.276", type text}, {"ReturnedOrderId.277", type text}, {"ReturnedOrderId.278", type text}, {"ReturnedOrderId.279", type text}, {"ReturnedOrderId.280", type text}, {"ReturnedOrderId.281", type text}, {"ReturnedOrderId.282", type text}, {"ReturnedOrderId.283", type text}, {"ReturnedOrderId.284", type text}, {"ReturnedOrderId.285", type text}, {"ReturnedOrderId.286", type text}, {"ReturnedOrderId.287", type text}, {"ReturnedOrderId.288", type text}, {"ReturnedOrderId.289", type text}, {"ReturnedOrderId.290", type text}, {"ReturnedOrderId.291", type text}, {"ReturnedOrderId.292", type text}, {"ReturnedOrderId.293", type text}, {"ReturnedOrderId.294", type text}, {"ReturnedOrderId.295", type text}, {"ReturnedOrderId.296", type text}}),
+				    #"Tabla transpuesta" = Table.Transpose(#"Tipo cambiado2"),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tabla transpuesta",{{"Column1", "ReturnedOrderId"}}),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"ReturnedOrderId", type text}}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Tipo cambiado3", {"ReturnedOrderId"}, T_Sales, {"Order ID"}, "T_Sales", JoinKind.LeftOuter),
+				    #"Se expandió T_Sales" = Table.ExpandTableColumn(#"Consultas combinadas", "T_Sales", {"Order Date", "CustomerId", "CityId", "ProductId", "Ship Date", "Ship ModeId", "Discount", "Profit", "Quantity", "Sales"}, {"Order Date", "CustomerId", "CityId", "ProductId", "Ship Date", "Ship ModeId", "Discount", "Profit", "Quantity", "Sales"})
+				in
+				    #"Se expandió T_Sales"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

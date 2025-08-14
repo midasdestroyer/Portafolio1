@@ -1,0 +1,66 @@
+table T_Manager
+	lineageTag: f354f626-c945-4105-9610-b19295168c5b
+
+	column RegionalManagerId
+		dataType: string
+		lineageTag: e0e1ebef-ba40-49e4-b266-ab0543e3bed2
+		summarizeBy: none
+		sourceColumn: RegionalManagerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Regional Manager'
+		dataType: string
+		lineageTag: 1dc116a4-e577-4e3f-9067-fe4bf6a85268
+		summarizeBy: none
+		sourceColumn: Regional Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column From
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d44f003-b7ff-4870-8276-a98f4f71f347
+		summarizeBy: none
+		sourceColumn: From
+
+		annotation SummarizationSetBy = Automatic
+
+	column To
+		dataType: int64
+		formatString: 0
+		lineageTag: 0785374e-952a-41dc-b7bb-502b35554f7c
+		summarizeBy: none
+		sourceColumn: To
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionalManagerIdC
+		dataType: string
+		lineageTag: a1248a4a-b327-4bef-bbf0-5ce8fc003057
+		summarizeBy: none
+		sourceColumn: RegionalManagerIdC
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Manager = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Manager.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"RegionalManagerId", type text}, {"Regional Manager", type text}, {"From", Int64.Type}, {"To", Int64.Type}}),
+				    #"Índice agregado" = Table.AddIndexColumn(#"Tipo cambiado", "Índice", 0, 1, Int64.Type),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Índice agregado",{"Índice"}),
+				    #"Índice agregado1" = Table.AddIndexColumn(#"Columnas quitadas", "Índice", 1, 1, Int64.Type),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Índice agregado1",{{"Índice", "RegionalManagerIdC"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+
