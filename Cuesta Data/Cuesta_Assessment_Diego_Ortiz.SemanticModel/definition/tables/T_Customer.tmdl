@@ -1,0 +1,42 @@
+table T_Customer
+	lineageTag: ead4a74f-3a82-45c3-bc41-14cea3db3876
+
+	column CustomerId
+		dataType: string
+		lineageTag: 233a9371-b703-4c9c-bb61-e6355504124c
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: 7e5e785c-9936-46f9-9f55-43a960756401
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerSegment
+		dataType: string
+		lineageTag: 5750f5a1-67e0-4096-b8e1-956c85d24109
+		summarizeBy: none
+		sourceColumn: CustomerSegment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Customer = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Customer.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"CustomerId", type text}, {"CustomerName", type text}, {"CustomerSegment", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

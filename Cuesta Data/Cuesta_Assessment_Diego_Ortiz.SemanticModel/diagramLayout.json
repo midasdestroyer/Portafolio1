@@ -1,0 +1,191 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 130.73015728109385,
+        "y": 3553.5976407081948
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 409.28380495066148,
+            "y": 3011.5981372085653
+          },
+          "nodeIndex": "T_CategorySubCategory",
+          "nodeLineageTag": "55281cb8-a70d-4a78-9e61-0fbde5f02dff",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 793.475539465322,
+            "y": 3797.8771977555239
+          },
+          "nodeIndex": "T_City",
+          "nodeLineageTag": "ebbc9351-f966-4049-8db4-514f4a04c811",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 813.1172876911819,
+            "y": 3082.8169249696161
+          },
+          "nodeIndex": "T_Customer",
+          "nodeLineageTag": "ead4a74f-3a82-45c3-bc41-14cea3db3876",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 450.65430826776537,
+            "y": 3816.9179240656867
+          },
+          "nodeIndex": "T_Manager",
+          "nodeLineageTag": "f354f626-c945-4105-9610-b19295168c5b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 94.713343104162959,
+            "y": 3237.3192853187829
+          },
+          "nodeIndex": "T_Manufacturer",
+          "nodeLineageTag": "45429149-d89f-4886-8e77-409b7887943f",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 546.29384999742808,
+            "y": 3269.2390788208
+          },
+          "nodeIndex": "T_Product",
+          "nodeLineageTag": "811addb6-6abb-4375-9e2a-011eb734bce8",
+          "size": {
+            "height": 225.28161837683365,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1139.9038899668985,
+            "y": 3573.2400267995718
+          },
+          "nodeIndex": "T_Returns",
+          "nodeLineageTag": "b3355c7f-f8f8-4c22-a80c-168e7c66b329",
+          "size": {
+            "height": 359.97638606544115,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1131.9392145203892,
+            "y": 3233.6726480299531
+          },
+          "nodeIndex": "T_Sales",
+          "nodeLineageTag": "eeee31af-eb54-4472-8c1a-4c37f53bcc72",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1524.612132624424,
+            "y": 3434.831928887796
+          },
+          "nodeIndex": "T_ShipMode",
+          "nodeLineageTag": "94c4b627-54cd-46d8-9ff1-142e72832994",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1513.2259436541437,
+            "y": 3133.5886733237344
+          },
+          "nodeIndex": "Measure",
+          "nodeLineageTag": "3ad16337-87b1-4c95-a42f-24e4952d154a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1125.7756813284623,
+            "y": 2961.2059660980203
+          },
+          "nodeIndex": "T_Calendar",
+          "nodeLineageTag": "e0dcce68-d077-4c90-8958-f3f8c850c7ce",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 803.10961431427779,
+            "y": 2826.6560152734924
+          },
+          "nodeIndex": "T_orderIDCount",
+          "nodeLineageTag": "bb619800-7ed5-474e-ba3d-34d1eedc0bc4",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 165.88626484404523,
+            "y": 3796.1932210706514
+          },
+          "nodeIndex": "T_PeopleImages",
+          "nodeLineageTag": "71afcde2-43d7-48c9-9c30-dad0f67c78e7",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 79.553182037699926,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

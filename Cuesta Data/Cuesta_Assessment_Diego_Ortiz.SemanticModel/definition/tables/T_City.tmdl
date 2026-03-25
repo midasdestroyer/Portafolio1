@@ -1,0 +1,70 @@
+table T_City
+	lineageTag: ebbc9351-f966-4049-8db4-514f4a04c811
+
+	column CityId
+		dataType: string
+		lineageTag: e1bb7c74-6256-44f7-9982-3db6a4809784
+		summarizeBy: none
+		sourceColumn: CityId
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 9fbb97f8-c972-45da-83ae-152d83812dc9
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State_Province
+		dataType: string
+		lineageTag: 5f231ca0-b13c-4337-aab0-93cc962026f4
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: State_Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 7e2267a1-608d-4b28-b00b-770eb861c121
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 3ae45b64-394f-40c1-9edf-393e3ab4a09d
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionalManagerId
+		dataType: string
+		lineageTag: 3dd29612-9e83-47f3-a207-efa8c288907d
+		summarizeBy: none
+		sourceColumn: RegionalManagerId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_City = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\City.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"CityId", type text}, {"City", type text}, {"State_Province", type text}, {"Region", type text}, {"Country", type text}, {"RegionalManagerId", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

@@ -1,0 +1,37 @@
+table T_Manufacturer
+	lineageTag: 45429149-d89f-4886-8e77-409b7887943f
+
+	column ManufacturerId
+		dataType: string
+		lineageTag: 76e426b4-7537-430a-9311-de3914f7007d
+		summarizeBy: none
+		sourceColumn: ManufacturerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		dataType: string
+		lineageTag: 1673fc15-cda1-4132-82eb-9a17ec1871e8
+		summarizeBy: none
+		sourceColumn: Manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Manufacturer = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("d:\Users\Diego Ortiz\Documents\FREELANCE\cuesta\Home Assessment _ Data Viz\Manufacturer.xlsx"), null, true),
+				    Sheet1_Sheet = Origen{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ManufacturerId", Int64.Type}, {"Manufacturer", type text}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each true),
+				    #"Duplicados quitados" = Table.Distinct(#"Filas filtradas", {"ManufacturerId"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Duplicados quitados",{{"ManufacturerId", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

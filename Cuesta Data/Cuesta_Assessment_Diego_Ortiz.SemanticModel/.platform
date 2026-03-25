@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Cuesta_Assessment_Diego_Ortiz"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ce9a86dd-4b77-459f-a1ac-e9880ddf3e38"
+  }
+}

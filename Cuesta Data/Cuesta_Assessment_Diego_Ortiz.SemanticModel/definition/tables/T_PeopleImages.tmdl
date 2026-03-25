@@ -1,0 +1,51 @@
+table T_PeopleImages
+	lineageTag: 71afcde2-43d7-48c9-9c30-dad0f67c78e7
+
+	column PersonID
+		lineageTag: d81b054a-90d0-4b0f-8abc-7e07197e9abb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PersonID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PersonName
+		lineageTag: 716aee87-0bb8-4a25-ae5b-cbbcbd5a0655
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PersonName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column URL
+		lineageTag: cec480f9-b026-47ed-99eb-135870c38b63
+		dataCategory: ImageUrl
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [URL]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_PeopleImages = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "PersonID",STRING,
+				    "PersonName",STRING,
+				    "URL",STRING,
+				    {
+				        {"1","Roxanne Rodriguez","https://cdn-icons-png.flaticon.com/128/4086/4086693.png"},
+				        {"2","Chuck Magee","https://cdn-icons-png.flaticon.com/128/3445/3445069.png"},
+				        {"3","Juan Pelaez","https://cdn-icons-png.flaticon.com/128/701/701993.png"},
+				        {"4","Sadie Pawthorne","https://cdn-icons-png.flaticon.com/128/2335/2335114.png"},
+				        {"5","Roxanne Rodriguez","https://cdn-icons-png.flaticon.com/128/5184/5184229.png"},
+				         {"6","Chuck Magee","https://cdn-icons-png.flaticon.com/128/9544/9544794.png"},
+				        {"7","Fred Suzuki","https://cdn-icons-png.flaticon.com/128/3493/3493767.png"},
+				         {"8","Sadie Pawthorne","https://cdn-icons-png.flaticon.com/128/3127/3127210.png"},
+				         {"9","Daniel Raidman","https://cdn-icons-png.flaticon.com/128/4439/4439947.png"}
+				    }
+				)
+
+	annotation PBI_Id = c712fd49e6224629814c8c6606017aea
+

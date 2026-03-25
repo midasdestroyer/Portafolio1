@@ -1,0 +1,80 @@
+relationship AutoDetected_0c2b0e33-d617-4ceb-9e5a-8ea440d03728
+	fromColumn: T_Product.CatSubCatId
+	toColumn: T_CategorySubCategory.CatSubCatId
+
+relationship AutoDetected_f1a8bbcf-d68c-4f37-886a-cf0807c2c438
+	fromColumn: T_Sales.CityId
+	toColumn: T_City.CityId
+
+relationship AutoDetected_e95fab88-3fbe-47af-9415-e63e08e3bef6
+	fromColumn: T_Sales.CustomerId
+	toColumn: T_Customer.CustomerId
+
+relationship AutoDetected_815b9d5b-3ab6-4a2e-9052-11a31d9f2a35
+	fromColumn: T_Sales.'Ship ModeId'
+	toColumn: T_ShipMode.ShipModeId
+
+relationship 18d74b62-1899-9a6f-4abd-5a5530822731
+	fromColumn: T_Sales.ProductId
+	toColumn: T_Product.ProductId
+
+relationship cc75b2e7-c543-4f89-990f-629966a162a5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Sales.'Ship Date'
+	toColumn: LocalDateTable_412f5a68-70b5-4f76-8662-d4ee00944685.Date
+
+relationship 4d0e8a73-cad5-a380-7103-b7594a6ef906
+	fromColumn: T_Product.ManufacturerId
+	toColumn: T_Manufacturer.ManufacturerId
+
+relationship d40ff9f8-9423-4fb0-96b6-73d279b7d873
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Calendar.Date
+	toColumn: LocalDateTable_41c61f65-4d3e-47f0-804f-a8cc8b7b657a.Date
+
+relationship 1b0b884d-1cb3-1563-f738-8b5396061d49
+	fromColumn: T_Sales.'Order Date'
+	toColumn: T_Calendar.Date
+
+relationship 3cf6c0c2-b9d9-4506-ee39-c421d4f8e7e0
+	fromColumn: T_City.RegionalManagerId
+	toColumn: T_Manager.RegionalManagerIdC
+
+relationship 15d0a9c0-5355-7882-2f7f-68d52eec9433
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: T_orderIDCount.CustomerId
+	toColumn: T_Customer.CustomerId
+
+relationship 9e9106c1-b67b-4e6d-8839-09a76abdf99d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Returns.'Order Date'
+	toColumn: LocalDateTable_5643b34a-9327-4e38-9044-24e8432fb061.Date
+
+relationship faf780db-22b1-4fa8-880a-0e17796df897
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Returns.'Ship Date'
+	toColumn: LocalDateTable_0b0fcbff-7433-4bf6-b618-03af2acd7b22.Date
+
+relationship AutoDetected_3959e294-dacb-4040-9fac-d1f04ac46441
+	fromColumn: T_Returns.CityId
+	toColumn: T_City.CityId
+
+relationship AutoDetected_6a579f88-fd89-4aa0-97b8-14f92056a95a
+	fromColumn: T_Returns.CustomerId
+	toColumn: T_Customer.CustomerId
+
+relationship AutoDetected_cb3094df-a25d-45ff-9eb4-2501f2363a24
+	fromColumn: T_Returns.ProductId
+	toColumn: T_Product.ProductId
+
+relationship AutoDetected_b06131bb-6011-4ab1-862b-e08beff9bf1d
+	fromColumn: T_Returns.'Ship ModeId'
+	toColumn: T_ShipMode.ShipModeId
+
+relationship 3dc1a8c8-5250-68bc-a2f5-575017adc363
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: T_PeopleImages.PersonID
+	toColumn: T_Manager.RegionalManagerIdC
+

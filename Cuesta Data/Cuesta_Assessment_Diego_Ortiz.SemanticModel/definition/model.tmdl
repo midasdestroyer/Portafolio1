@@ -1,0 +1,42 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CO
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+/// Errores en las consultas cargadas en 1/08/2025 8:49:52 p. m..
+queryGroup 'Errores en las consultas: 1/08/2025 8:49:52 p  m'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["T_CategorySubCategory","T_City","T_Customer","T_Manager","T_Manufacturer","T_Product","T_Returns","T_Sales","T_ShipMode","Errores en T_Sales","Measure"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.142.928.0 (25.04)+de52df9f0bb74ad93a80d89c52d63fe6d07e0e1b
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table T_CategorySubCategory
+ref table T_City
+ref table T_Customer
+ref table T_Manager
+ref table T_Manufacturer
+ref table T_Product
+ref table T_Returns
+ref table T_Sales
+ref table T_ShipMode
+ref table DateTableTemplate_7a62f0da-5f67-4398-9984-a53c5de0d979
+ref table LocalDateTable_412f5a68-70b5-4f76-8662-d4ee00944685
+ref table Measure
+ref table T_Calendar
+ref table LocalDateTable_41c61f65-4d3e-47f0-804f-a8cc8b7b657a
+ref table T_orderIDCount
+ref table LocalDateTable_5643b34a-9327-4e38-9044-24e8432fb061
+ref table LocalDateTable_0b0fcbff-7433-4bf6-b618-03af2acd7b22
+ref table T_PeopleImages
+
+ref cultureInfo es-ES
+

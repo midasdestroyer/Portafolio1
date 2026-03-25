@@ -1,0 +1,246 @@
+table Measure
+	lineageTag: 3ad16337-87b1-4c95-a42f-24e4952d154a
+
+	measure DeltaSalesProfit = ```
+			
+			DIVIDE(
+			    SUM(T_Sales[Profit]),
+			    SUM(T_Sales[Sales]),
+			    0
+			)
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 7a1edddd-efa3-4174-a1f3-0c9ca731782a
+
+	measure Sales-1Y =
+			
+			CALCULATE(
+			    SUM(T_Sales[Sales]),
+			    SAMEPERIODLASTYEAR('T_Calendar'[Date])
+			)
+		lineageTag: ff180387-0ae0-4b28-98da-e5a32abb8dae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ProdMaxQ = ```
+			
+			VAR SalesTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalSales", CALCULATE(SUM(T_Sales[Quantity]))
+			    )
+			VAR TopProduct = 
+			    TOPN(
+			        1,
+			        SalesTable,
+			        [TotalSales],
+			        DESC
+			    )
+			VAR ProductName = SELECTCOLUMNS(TopProduct, "Name", T_Product[ProductName])
+			VAR TotalSales = SELECTCOLUMNS(TopProduct, "Sales", [TotalSales])
+			RETURN
+			    CONCATENATEX(
+			        TopProduct,
+			        T_Product[ProductName] & " - " & FORMAT([TotalSales], "#,##0"),
+			        ", "
+			    )
+			
+			
+			```
+		lineageTag: 8eaed1cf-a4bb-4a74-a653-dd567d0e0166
+
+	measure ProdMaxSales = ```
+			
+			VAR SalesTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalRevenue", CALCULATE(SUM(T_Sales[Sales]))
+			    )
+			VAR TopProduct = 
+			    TOPN(
+			        1,
+			        SalesTable,
+			        [TotalRevenue],
+			        DESC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        TopProduct,
+			        T_Product[ProductName] & " - $" & FORMAT([TotalRevenue], "#,##0.00"),
+			        ", "
+			    )
+			
+			```
+		lineageTag: 51ef2a04-a1ad-4fac-8396-96a3b9a72411
+
+	measure ProdMaxProfit = ```
+			
+			VAR ProfitTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalProfit", CALCULATE(SUM(T_Sales[Profit]))
+			    )
+			VAR TopProduct = 
+			    TOPN(
+			        1,
+			        ProfitTable,
+			        [TotalProfit],
+			        DESC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        TopProduct,
+			        T_Product[ProductName] & " - $" & FORMAT([TotalProfit], "#,##0.00"),
+			        ", "
+			    )
+			
+			```
+		lineageTag: fc03acbe-8b0b-44e4-b7f9-d89f625adb49
+
+	measure ProdMinProfit = ```
+			
+			VAR ProfitTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalProfit", CALCULATE(SUM(T_Sales[Profit]))
+			    )
+			VAR BottomProduct = 
+			    TOPN(
+			        1,
+			        ProfitTable,
+			        [TotalProfit],
+			        ASC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        BottomProduct,
+			        T_Product[ProductName] & " - $" & FORMAT([TotalProfit], "#,##0.00"),
+			        ", "
+			    )
+			
+			```
+		lineageTag: 83c295ed-188d-447d-a95f-ad9793cec4bd
+
+	measure ProdMinSales = ```
+			
+			VAR SalesTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalRevenue", CALCULATE(SUM(T_Sales[Sales]))
+			    )
+			VAR BottomProduct = 
+			    TOPN(
+			        1,
+			        SalesTable,
+			        [TotalRevenue],
+			        ASC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        BottomProduct,
+			        T_Product[ProductName] & " - $" & FORMAT([TotalRevenue], "#,##0.00"),
+			        ", "
+			    )
+			
+			```
+		lineageTag: c9c72f8d-510d-4ae0-9b95-b59b7c6e6f44
+
+	measure ProdMinQ = ```
+			
+			VAR SalesTable = 
+			    SUMMARIZE(
+			        T_Product,
+			        T_Product[ProductName],
+			        "TotalSales", CALCULATE(SUM(T_Sales[Quantity]))
+			    )
+			VAR BottomProduct = 
+			    TOPN(
+			        1,
+			        SalesTable,
+			        [TotalSales],
+			        ASC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        BottomProduct,
+			        T_Product[ProductName] & " - " & FORMAT([TotalSales], "#,##0"),
+			        ", "
+			    )
+			
+			```
+		lineageTag: bb94ff11-dab6-434a-8731-a666ddbc55ad
+
+	measure DeliveryTimeColor = ```
+			
+			VAR AvgDelivery = AVERAGE(T_Sales[DeliveryTimeDays])
+			VAR ThresholdHigh = AvgDelivery + 0.3
+			VAR ThresholdLow = AvgDelivery - 0.3
+			VAR CurrentDelivery = SELECTEDVALUE(T_Sales[DeliveryTimeDays])
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        CurrentDelivery > ThresholdHigh, "#FF4C4C",    -- Rojo
+			        CurrentDelivery < ThresholdLow, "#4CAF50",     -- Verde
+			        "#FFC107"                                      -- Amarillo
+			    )
+			
+			```
+		lineageTag: e33cd5d7-ed83-4093-b618-158f11409f48
+
+	measure UniqueOrderClient =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(T_Sales[Order ID]),
+			    ALLEXCEPT(T_Sales, T_Sales[CustomerID])
+			)
+		formatString: 0
+		lineageTag: a1f36454-687e-47ab-af22-5baadd13e2dc
+
+	measure MeDinOrdID =
+			
+			SWITCH(
+			    SELECTEDVALUE(T_Sales[Order ID]),
+			    "Order ID", DISTINCTCOUNT('T_Sales'[Order ID]),
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: 30f54d4d-8a06-4794-a36d-74db082b5813
+
+	measure Profit-1Y =
+			
+			CALCULATE(
+			    SUM(T_Sales[Profit]),
+			    SAMEPERIODLASTYEAR('T_Calendar'[Date])
+			)
+		lineageTag: b95459bd-7b1e-4a06-96c1-0dc8fc575b17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Columna1
+		dataType: string
+		lineageTag: deb33437-f7a1-4a06-b778-75c1e7559855
+		summarizeBy: none
+		sourceColumn: Columna1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measure = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}})
+				in
+				    #"Tipo cambiado"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

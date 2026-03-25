@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.7.0/schema.json",
+  "name": "d4e588edb64fe619d761",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 5000,
+    "height": 71.508379888268166,
+    "width": 1040.4469273743018,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "7. Customer Segmentation by Purchase History",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "32pt",
+                      "color": "#f2f7fb"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
